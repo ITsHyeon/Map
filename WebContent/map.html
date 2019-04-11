@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Favorite</title>
+<style>
+* {
+	box-sizing: border-box;
+}
+
+#map {
+	width: 100%;
+	height: 400px;
+	background-color: grey;
+}
+
+.slideshow-container {
+	max-width: 500px;
+	position: relative;
+	float: left;
+}
+
+.mySlides {
+	display: none;
+}
+
+.prev, .next {
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	width: auto;
+	margin-top: -22px;
+	padding: 16px;
+	color: white;
+	font-weight: bold;
+	font-size: 18px;
+	transition: 0.6s ease;
+	border-radius: 0 3px 3px 0;
+	user-select: none;
+}
+
+.next {
+	right: 0;
+	border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.fade {
+	-webkit-animation-name: fade;
+	-webkit-animation-duration: 1.5s;
+	animation-name: fade;
+	animation-duration: 1.5s;
+}
+
+@
+-webkit-keyframes fade {
+	from {opacity: .4
+}
+
+to {
+	opacity: 1
+}
+
+}
+@
+keyframes fade {
+	from {opacity: .4
+}
+
+to {
+	opacity: 1
+}
+
+}
+img {
+	width: 500px;
+	height: 500px;
+	margin-top: 20px;
+}
+
+.introduce {
+	width: auto;
+	float: left;
+}
+
+.context {
+	float: left;
+	position: relative;
+	margin-left: 10px;
+}
+
+
+</style>
+</head>
+<body>
+	<h3>My favorite place</h3>
+	<!--The div element for the map -->
+	<div id="map"></div>
+	<div class="slideshow-container">
+		<div class="mySlides fade">
+			<img alt="A.mmelt" src="./ammelt.PNG">
+		</div>
+		<div class="mySlides fade">
+			<img alt="A.mmelt" src="./ammelt2.PNG">
+		</div>
+		<div class="mySlides fade">
+			<img alt="A.mmelt" src="./ammelt3.PNG">
+		</div>
+
+		<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a class="next"
+			onclick="plusSlides(1)">&#10095;</a> <br>
+	</div>
+
+	<div class="context">
+		<h1>A.mmelt</h1>
+		<span>서울 마포구 희우정로20길 15
+			<p>젤라또와 프렌치 토스트, 커피가 맛있는 조용하고 아늑한 카페
+		</span>
+		<p>
+			Instar : <a href="https://www.instagram.com/a.mmelt/?hl=ko"
+				target="_blank">https://www.instagram.com/a.mmelt/?hl=ko</a>
+	</div>
+	<script>
+		// imageslide
+		var slideIndex = 1;
+		showSlides(slideIndex);
+
+		// Next/previous controls
+		function plusSlides(n) {
+			showSlides(slideIndex += n);
+		}
+
+		// Thumbnail image controls
+		function currentSlide(n) {
+			showSlides(slideIndex = n);
+		}
+
+		function showSlides(n) {
+			var i;
+			var slides = document.getElementsByClassName("mySlides");
+			var dots = document.getElementsByClassName("dot");
+			if (n > slides.length) {
+				slideIndex = 1
+			}
+			if (n < 1) {
+				slideIndex = slides.length
+			}
+			for (i = 0; i < slides.length; i++) {
+				slides[i].style.display = "none";
+			}
+			for (i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace(" active", "");
+			}
+			slides[slideIndex - 1].style.display = "block";
+			dots[slideIndex - 1].className += " active";
+		}
+		// map
+		function initMap() {
+			var uluru = {
+				lat : 37.555832,
+				lng : 126.901177
+			};
+			var map = new google.maps.Map(document.getElementById('map'), {
+				zoom : 17,
+				center : uluru
+			});
+			var marker = new google.maps.Marker({
+				position : uluru,
+				map : map
+			});
+		}
+
+	</script>
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7nnoG8FxJ8CcMFYcE_isUIH-GUFvu4jA&callback=initMap">
+		
+	</script>
+</body>
+</html>
