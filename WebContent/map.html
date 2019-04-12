@@ -3,19 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <title>Favorite</title>
-<style>
+<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7nnoG8FxJ8CcMFYcE_isUIH-GUFvu4jA&callback=initMap"></script>
+<!-- <script src="map.js"></script>-->
+<style type="text/css">
 * {
 	box-sizing: border-box;
 }
 
+img {
+	width: 300px;
+	height: 300px;
+	/* margin-top: 20px; */
+}
+
+body {
+	background-color: #ffeecc;
+}
+
+h1 {
+	text-align: center;
+	font-size: 40px;
+	font-style: oblique;
+	font-family: serif;
+	color: #200C06;
+}
+
+span {
+	text-align: center;
+	font-size: 25px;
+	font-family: inherit;
+	color: #200C06;
+}
+
 #map {
 	width: 100%;
-	height: 400px;
+	height: 900px;
 	background-color: grey;
 }
 
 .slideshow-container {
-	max-width: 500px;
+	max-width: 300px;
 	position: relative;
 	float: left;
 }
@@ -29,7 +57,7 @@
 	position: absolute;
 	top: 50%;
 	width: auto;
-	margin-top: -22px;
+	margin-top: -75px;
 	padding: 16px;
 	color: white;
 	font-weight: bold;
@@ -55,8 +83,7 @@
 	animation-duration: 1.5s;
 }
 
-@
--webkit-keyframes fade {
+@-webkit-keyframes fade {
 	from {opacity: .4
 }
 
@@ -65,8 +92,7 @@ to {
 }
 
 }
-@
-keyframes fade {
+@keyframes fade {
 	from {opacity: .4
 }
 
@@ -75,12 +101,6 @@ to {
 }
 
 }
-img {
-	width: 500px;
-	height: 500px;
-	margin-top: 20px;
-}
-
 .introduce {
 	width: auto;
 	float: left;
@@ -91,39 +111,58 @@ img {
 	position: relative;
 	margin-left: 10px;
 }
-
-
 </style>
 </head>
 <body>
-	<h3>My favorite place</h3>
-	<!--The div element for the map -->
+	<h1>My favorite place</h1>
 	<div id="map"></div>
-	<div class="slideshow-container">
-		<div class="mySlides fade">
-			<img alt="A.mmelt" src="./ammelt.PNG">
-		</div>
-		<div class="mySlides fade">
-			<img alt="A.mmelt" src="./ammelt2.PNG">
-		</div>
-		<div class="mySlides fade">
-			<img alt="A.mmelt" src="./ammelt3.PNG">
-		</div>
-
-		<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a class="next"
-			onclick="plusSlides(1)">&#10095;</a> <br>
-	</div>
-
-	<div class="context">
-		<h1>A.mmelt</h1>
-		<span>서울 마포구 희우정로20길 15
-			<p>젤라또와 프렌치 토스트, 커피가 맛있는 조용하고 아늑한 카페
-		</span>
-		<p>
-			Instar : <a href="https://www.instagram.com/a.mmelt/?hl=ko"
-				target="_blank">https://www.instagram.com/a.mmelt/?hl=ko</a>
-	</div>
+	<span>- content에서 버튼을 누르면 이미지 슬라이드가 나옵니다 </span>
+	<footer>3512이수현</footer>
 	<script>
+		function initMap() {
+			var uluru = {
+				lat : 37.555832,
+				lng : 126.901177
+			};
+			var map = new google.maps.Map(document.getElementById('map'), {
+				zoom : 17,
+				center : uluru
+			});
+
+			var contentString = '<div id="content">'
+					+ '<div id="siteNotice">'
+					+ '<h2 id="firstHeading" class="firstHeading">A.mmelt</h2>'
+					+ '<div class="slideshow-container">'
+					+ '<div class="mySlides fade">'
+					+ '<img alt="A.mmelt" src="ammelt.PNG">'
+					+ '</div>'
+					+ '<div class="mySlides fade">'
+					+ '<img alt="A.mmelt" src="ammelt2.PNG">'
+					+ '</div>'
+					+ '<div class="mySlides fade">'
+					+ '<img alt="A.mmelt" src="ammelt3.PNG">'
+					+ '</div>'
+					+ '<a class="prev" onclick="plusSlides(-1)">&#10094;</a>'
+					+ '<a class="next" onclick="plusSlides(1)">&#10095;</a> <br>'
+					+ '젤라또와 프렌치 토스트, 커피를 판매하는 아늑하고 조용한 카페<br>'
+					+ '매주 커피모임을 통해 커피에 관한 상식을 공유하고 커피를 즐길 수 있는 모임<br>서울특별시 마포구 망원1동 희우정로20길 15<br><p>'
+					+ 'Instar : <a href="https://www.instagram.com/a.mmelt/?hl=ko" target="_blank">@a.mmelt</a>'
+					+ '</div>' + '</div>' + '</div>';
+
+			var infowindow = new google.maps.InfoWindow({
+				content : contentString
+			});
+
+			var marker = new google.maps.Marker({
+				position : uluru,
+				map : map,
+				title : 'Uluru (Ayers Rock)'
+			});
+			marker.addListener('click', function() {
+				infowindow.open(map, marker);
+			});
+		}
+
 		// imageslide
 		var slideIndex = 1;
 		showSlides(slideIndex);
@@ -157,26 +196,7 @@ img {
 			slides[slideIndex - 1].style.display = "block";
 			dots[slideIndex - 1].className += " active";
 		}
-		// map
-		function initMap() {
-			var uluru = {
-				lat : 37.555832,
-				lng : 126.901177
-			};
-			var map = new google.maps.Map(document.getElementById('map'), {
-				zoom : 17,
-				center : uluru
-			});
-			var marker = new google.maps.Marker({
-				position : uluru,
-				map : map
-			});
-		}
+	</script>
 
-	</script>
-	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7nnoG8FxJ8CcMFYcE_isUIH-GUFvu4jA&callback=initMap">
-		
-	</script>
 </body>
 </html>
